@@ -15,7 +15,13 @@ Python 3.7+, PyTorch 1.3+, Pandas 1.0+ recommended
 
 ```bash
 pip install --no-deps git+git://github.com/Heerozh/spectre.git
+
+or
+
+pip install git+https://github.com/Moccazio/spectre # macos
 ```
+
+
 
 Dependencies:
 
