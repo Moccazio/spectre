@@ -73,7 +73,7 @@ class DataLoader:
         date_index = df.index.get_level_values(0)
         unique_date = date_index.unique()
         time_cat = dict(zip(unique_date, range(len(unique_date))))
-        cat = np.fromiter(map(lambda x: time_cat[x], date_index), dtype=np.int)
+        cat = np.fromiter(map(lambda x: time_cat[x], date_index), dtype=np.int32)
         df[self.time_category] = cat
 
         # Process dividends and split
@@ -126,8 +126,8 @@ class DataLoader:
             "df.index.names should be ['date', 'asset'] "
         assert not any(df.index.duplicated()), \
             "There are duplicate indexes in df, you need handle them up."
-        assert df.index.is_lexsorted(), \
-            "df.index must be sorted, try using df.sort_index(level=0, inplace=True)"
+        assert df.index.is_monotonic_increasing, \
+            "df.index must be sorted, try using df.sort_index(level=[0, 1], inplace=True)"
         assert str(df.index.levels[0].tzinfo) == 'UTC', \
             "df.index.date must be UTC timezone."
         assert df.index.levels[-1].ordered, \
